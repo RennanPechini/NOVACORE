@@ -57,11 +57,3 @@ th { color: var(--suave); font-weight: 600; }
 .n { text-align: right; font-variant-numeric: tabular-nums; }
 tr.baixo td:first-child { box-shadow: inset 4px 0 0 var(--ambar); }
 .rodape { color: var(--suave); font-size: 13px; }
-
-select { padding: 9px 12px; border: 1px solid var(--linha); border-radius: 6px; background: var(--painel); color: var(--texto); font-size: 15px; }
-.numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
-.numeros div { background: var(--painel); border: 1px solid var(--linha); border-top: 4px solid var(--ambar); border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
-.numeros span { color: var(--suave); font-size: 13px; }
-.numeros strong { font-size: 24px; font-variant-numeric: tabular-nums; }
-.dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 1000px) { .numeros { grid-template-columns: 1fr 1fr; } .dupla { grid-template-columns: 1fr; } }

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { entrar, Perfil, Usuario } from "./db";
 import Produtos from "./Produtos";
-import { Caixa, Entrada, Movimentacoes, Painel, Pedidos, Usuarios } from "./Operacoes";
 
 const MODULOS: Record<Perfil, string[]> = {
-  gerente: ["Painel", "Produtos", "Pedidos", "Movimentações", "Usuários"],
-  vendedor: ["Buscar peça", "Pedidos"],
-  caixa: ["Caixa"],
-  estoque: ["Produtos", "Entrada de nota", "Movimentações"],
+  gerente: ["Painel", "Produtos", "Relatórios", "Preços e descontos", "Usuários", "Aprovações"],
+  vendedor: ["Buscar peça", "Orçamentos", "Pedidos", "Clientes"],
+  caixa: ["Caixa", "Receber pedido", "Sangria e troco", "Fechamento"],
+  estoque: ["Produtos", "Entrada de nota", "Inventário", "Movimentações"],
 };
 const NOME_PERFIL: Record<Perfil, string> = {
   gerente: "Gerente", vendedor: "Vendedor", caixa: "Caixa", estoque: "Estoque",
@@ -32,8 +31,8 @@ function Login({ onOk }: { onOk: (u: Usuario) => void }) {
   return (
     <div className="login">
       <div className="login-marca">
-        <h1>NOVACORE</h1>
-        <p>Gestão para lojas de auto peças</p>
+        <h1>Balcão</h1>
+        <p>Gestão da loja de auto peças</p>
       </div>
       <div className="login-form">
         <label>Usuário
@@ -45,7 +44,7 @@ function Login({ onOk }: { onOk: (u: Usuario) => void }) {
         </label>
         {erro && <p className="erro" role="alert">{erro}</p>}
         <button onClick={enviar} disabled={carregando}>{carregando ? "Entrando..." : "Entrar"}</button>
-        <p className="dica">Acesso inicial: gerente, vendedor, caixa ou estoque. Senha 1234 (troque em Usuários).</p>
+        <p className="dica">Acesso inicial: gerente, vendedor, caixa ou estoque. Senha 1234 (troque na etapa de usuários).</p>
       </div>
     </div>
   );
@@ -57,7 +56,7 @@ function Shell({ u, sair }: { u: Usuario; sair: () => void }) {
   return (
     <div className="shell">
       <aside>
-        <div className="marca">NOVACORE</div>
+        <div className="marca">Balcão</div>
         <nav>
           {mods.map((m) => (
             <button key={m} className={m === ativo ? "on" : ""} onClick={() => setAtivo(m)}>{m}</button>
@@ -71,13 +70,9 @@ function Shell({ u, sair }: { u: Usuario; sair: () => void }) {
       </aside>
       <main>
         <h2>{ativo}</h2>
-        {ativo === "Produtos" || ativo === "Buscar peça" ? <Produtos u={u} />
-          : ativo === "Pedidos" ? <Pedidos u={u} />
-          : ativo === "Caixa" ? <Caixa u={u} />
-          : ativo === "Entrada de nota" ? <Entrada u={u} />
-          : ativo === "Movimentações" ? <Movimentacoes u={u} />
-          : ativo === "Painel" ? <Painel u={u} />
-          : <Usuarios u={u} />}
+        {ativo === "Produtos" || ativo === "Buscar peça"
+          ? <Produtos u={u} />
+          : <p className="vazio">Este módulo entra nas próximas etapas.</p>}
       </main>
     </div>
   );
